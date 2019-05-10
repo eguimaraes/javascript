@@ -1,4 +1,4 @@
-script>
+<script>
     $.ajax({
         var siteurl = _spPageContextInfo.webAbsoluteUrl;
         $.ajax({
