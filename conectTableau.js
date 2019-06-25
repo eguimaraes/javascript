@@ -61,3 +61,11 @@ var url = "http://serveraddress//api/2.3/sites/"+login_details[1]+"/workbooks?pa
 
 
 }
+
+getToken()
+    .then(function(login_details){
+        console.log(login_details[0]+"/"+login_details[1]);
+    })
+    .then(function(){
+        getWorkbooks();
+    })
