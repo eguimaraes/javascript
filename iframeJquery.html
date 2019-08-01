@@ -1,0 +1,44 @@
+<html>
+<head>
+<script>
+$(function () {
+    var iframe = $('<iframe frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>');
+    var dialog = $("<div></div>").append(iframe).appendTo("body").dialog({
+        autoOpen: false,
+        modal: true,
+        resizable: false,
+        width: "auto",
+        height: "auto",
+        close: function () {
+            iframe.attr("src", "");
+        }
+    });
+    $(".thumb a").on("click", function (e) {
+        e.preventDefault();
+        var src = $(this).attr("href");
+        var title = $(this).attr("data-title");
+        var width = $(this).attr("data-width");
+        var height = $(this).attr("data-height");
+        iframe.attr({
+            width: +width,
+            height: +height,
+            src: src
+        });
+        dialog.dialog("option", "title", title).dialog("open");
+    });
+});
+
+
+</script>
+
+
+</head>
+
+<body>
+
+<div></div>
+
+</body>
+
+
+</html>
