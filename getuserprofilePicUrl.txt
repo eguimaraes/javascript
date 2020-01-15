@@ -1,0 +1,1 @@
+http://YOURSITEURL/_api/SP.UserProfiles.PeopleManager/GetPropertiesFor(accountName=@v)?@v='login'&$select=PictureUrl
