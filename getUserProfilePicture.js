@@ -1,15 +1,20 @@
- function getProfImg(){
-    var siteurl = _spPageContextInfo.webAbsoluteUrl;
-    var retorno="";
+function getProfImg(){
+    
+    
    
       $.ajax({
         
-                   url: siteurl + "/_api/SP.UserProfiles.PeopleManager/GetMyProperties/PictureUrl",
+                   url:  "https://edvaldoguimaraes.sharepoint.com/_api/SP.UserProfiles.PeopleManager/GetMyProperties/PictureUrl",
                    method: "GET",
                    headers: { "Accept": "application/json; odata=verbose" },
                    success: function (data) {
-                        if (d.PictureUrl.length > 0 ) {
-                             retorno=d.PictureUrl
+                        if (data.d.PictureUrl.length > 0 ) {
+  
+imagem=document.getElementById("profilePicImg");
+                                                     imagem.src=data.d.PictureUrl;
+                                                       
+                                                       
+                             
                         }        
                   },
                   error: function (error) {
@@ -19,6 +24,7 @@
    
    
    
-   return retorno
+   
    
     }
+    
