@@ -4,7 +4,7 @@
    
       $.ajax({
         
-                   url: siteurl + "/_api/web/lists/getbytitle('Projects')/items(3)",
+                   url: siteurl + "_api/SP.UserProfiles.PeopleManager/GetMyProperties/PictureUrl",
                    method: "GET",
                    headers: { "Accept": "application/json; odata=verbose" },
                    success: function (data) {
