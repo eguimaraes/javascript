@@ -1,0 +1,80 @@
+<html>  
+  
+    <head>  
+        <script language="javascript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>  
+        <script language="javascript" type="text/javascript">  
+var fileInput;  
+$(document)  
+    .ready(function () {  
+        fileInput = $("#getFile");  
+        SP.SOD.executeFunc('sp.js', 'SP.ClientContext', registerClick);  
+    });  
+  
+function registerClick() {  
+    //Register File Upload Click Event   
+    $("#addFileButton").click(readFile);  
+}  
+var arrayBuffer;  
+  
+function readFile() {  
+    
+    //Get File Input Control and read th file name  
+    var element = document.getElementById("getFile");  
+    var file = element.files[0];  
+    var parts = element.value.split("\\");  
+    var fileName = parts[parts.length - 1];  
+    
+    //Read File contents using file reader  
+    var reader = new FileReader();  
+    reader.onload = function (e) {  
+        uploadFile(e.target.result, fileName);  
+    }  
+    reader.onerror = function (e) {  
+        alert(e.target.error);  
+    }  
+    reader.readAsArrayBuffer(file);  
+}  
+var attachmentFiles;  
+  
+function uploadFile(arrayBuffer, fileName) {  
+    //Get Client Context,Web and List object.  
+    var clientContext = new SP.ClientContext();  
+    var oWeb = clientContext.get_web();  
+    var oList = oWeb.get_lists().getByTitle('Documents');  
+    
+    //Convert the file contents into base64 data  
+ var bytes = new Uint8Array(arrayBuffer);  
+    var i, length, out = '';  
+    for (i = 0, length = bytes.length; i < length; i += 1) {  
+        out += String.fromCharCode(bytes[i]);  
+    }  
+    var base64 = btoa(out);  
+    //Create FileCreationInformation object using the read file data  
+    var createInfo = new SP.FileCreationInformation();  
+    createInfo.set_content(base64);  
+    createInfo.set_url(fileName);  
+    
+    //Add the file to the library  
+    var uploadedDocument = oList.get_rootFolder().get_files().add(createInfo)  
+    //Load client context and execcute the batch  
+    clientContext.load(uploadedDocument);  
+    clientContext.executeQueryAsync(QuerySuccess, QueryFailure);  
+}  
+  
+function QuerySuccess() {  
+    console.log('File Uploaded Successfully.');  
+    alert("File Uploaded Successfully.").  
+}  
+  
+function QueryFailure(sender, args) {  
+    console.log('Request failed with error message - ' + args.get_message() + ' . Stack Trace - ' + args.get_stackTrace());  
+alert("Request failed with error message - " + args.get_message() + " . Stack Trace - " + args.get_stackTrace());  
+}  
+  
+        </script>  
+    </head>  
+  
+    <body>  
+        <input id="getFile" type="file" /><br /> <input id="addFileButton" type="button" value="Upload" />  
+    </body>  
+    <html>  
