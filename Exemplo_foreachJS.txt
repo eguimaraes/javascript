@@ -1,0 +1,15 @@
+const mat=[1,2,3,4]
+undefined
+mat.filter(el=>el===1)
+[1]
+mat.filter(el=>el>=1)
+(4) [1, 2, 3, 4]
+mat.filter(el=>el>=3)
+(2) [3, 4]
+mat.filter(el=>el>=3)
+(2) [3, 4]
+mat.filter(el=>el>=3).every(el=>console.log(el))
+VM704:1 3
+false
+mat.filter(el=>el>=3).forEach(el=>console.log(el))
+VM762:1 3
